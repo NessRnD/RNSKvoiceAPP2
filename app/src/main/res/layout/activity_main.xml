@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="16dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Чек-лист аудиозаписей"
+            android:textSize="24sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Запись 1 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Назовите дату и время:"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="«Cегодня 13 марта 2025 года 17 часов 20 минут…»"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 1"/>
+
+            <Button
+                android:id="@+id/playButton1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <!-- Запись 2 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Назовите ваше ФИО:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="«Я инженер строительного контроля Иванов Иван Иванович…»"
+            android:textStyle="italic"
+            android:layout_marginBottom="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 2"/>
+
+            <Button
+                android:id="@+id/playButton2"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton2"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <!-- Запись 3 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Назовите Объект:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="«…провожу контроль на объекте Нефтепровод ГНПС Пайяха...»"
+            android:textStyle="italic"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 3"/>
+
+            <Button
+                android:id="@+id/playButton3"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton3"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <!-- Запись 4 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Назовите организацию осуществляющую строительство:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="«…Строительство осуществляет ООО «СинараСтройКомплект»…»"
+            android:textStyle="italic"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 4"/>
+
+            <Button
+                android:id="@+id/playButton4"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton4"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <!-- Запись 5 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Назовите ответственного представителя заказчика:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="« …в присутствии представителя заказчика Петрова Петра Петровича…»"
+            android:textStyle="italic"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 5"/>
+
+            <Button
+                android:id="@+id/playButton5"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton5"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <!-- Запись 6 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Назовите ответственного представителя подрядчика:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="«...и представителя подрядчика Сидорова Сидора Сидоровича...»"
+            android:textStyle="italic"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 6"/>
+
+            <Button
+                android:id="@+id/playButton6"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton6"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <!-- Запись 7 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Опишите выявленные нарушения"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="«…по результатам проверки выявлено - {описание нарушения} {место выявления (участок, локация)}» \n
+            Нарушения следует описывать по одному, сначала первое, следуя всей структуре, затем следующее и т.д;"
+            android:textStyle="italic"
+            android:layout_marginBottom="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 7"/>
+
+            <Button
+                android:id="@+id/playButton7"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton7"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <!-- Запись 8 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Скажите: «…запись завершена.»"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 8"/>
+
+            <Button
+                android:id="@+id/playButton8"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton8"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <!--&lt;!&ndash; Запись 9 &ndash;&gt;
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9. Наименование документации"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 9"/>
+
+            <Button
+                android:id="@+id/playButton9"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton9"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        &lt;!&ndash; Запись 10 &ndash;&gt;
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10. Объемы работ зафиксированные при СК"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 10"/>
+
+            <Button
+                android:id="@+id/playButton10"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton10"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        &lt;!&ndash; Запись 11 &ndash;&gt;
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="11. Оборудование используемое при осуществлении СК"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 11"/>
+
+            <Button
+                android:id="@+id/playButton11"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton11"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        &lt;!&ndash; Запись 12 &ndash;&gt;
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12. Отчёт по результатам СК"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 12"/>
+
+            <Button
+                android:id="@+id/playButton12"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton12"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        &lt;!&ndash; Запись 13 &ndash;&gt;
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="13. Заключение по результатам СК"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 13"/>
+
+            <Button
+                android:id="@+id/playButton13"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton13"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        &lt;!&ndash; Запись 14 &ndash;&gt;
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="14. Дополнительные замечания"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/recordButton14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 14"/>
+
+            <Button
+                android:id="@+id/playButton14"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton14"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        &lt;!&ndash; Запись 15 &ndash;&gt;
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="15. Подписи (ФИО, должность, уровень ВИК)"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/recordButton15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Запись 15"/>
+
+            <Button
+                android:id="@+id/playButton15"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/deleteButton15"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:layout_marginLeft="8dp"
+                android:enabled="false"/>
+        </LinearLayout>-->
+
+        <!-- Кнопки сохранить и история -->
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Сохранить все записи"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/historyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="История записей"
+            android:layout_marginBottom="32dp"/>
+    </LinearLayout>
+</ScrollView>

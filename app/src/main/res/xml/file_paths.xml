@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Внешнее хранилище - папка Music -->
+    <external-files-path
+        name="external_music"
+        path="Music/" />
+
+    <!-- Внешнее хранилище - корень -->
+    <external-path
+        name="external"
+        path="." />
+
+    <!-- Внутреннее хранилище -->
+    <files-path
+        name="internal"
+        path="." />
+
+    <!-- Кэш -->
+    <cache-path
+        name="cache"
+        path="." />
+</paths>
