@@ -1,9 +1,12 @@
 package com.example.rnskvoiceapp
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaCodec
+import android.media.MediaExtractor
+import android.media.MediaFormat
+import android.media.MediaMuxer
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
@@ -12,18 +15,14 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.arthenica.ffmpegkit.FFmpegKit
-import com.arthenica.ffmpegkit.ReturnCode
 import java.io.File
-import java.io.FileWriter
+import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -226,7 +225,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 recordButtons[index].text = "Запись ${index + 1}"
                 recordButtons[index].setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.not_recorded_gray)
+                    ContextCompat.getColor(this, R.color.purple_700)
                 )
                 playButtons[index].isEnabled = false
                 deleteButtons[index].isEnabled = false
@@ -292,7 +291,7 @@ class MainActivity : AppCompatActivity() {
                 // Обновляем UI
                 recordButtons[index].text = "Запись ${index + 1}"
                 recordButtons[index].setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.not_recorded_gray)
+                    ContextCompat.getColor(this, R.color.purple_500)
                 )
                 playButtons[index].isEnabled = false
                 deleteButtons[index].isEnabled = false
@@ -454,94 +453,135 @@ class MainActivity : AppCompatActivity() {
     private fun mergeAudioFilesWithSilence() {
         val validFiles = audioFiles.filterNotNull().map { File(it) }
         if (validFiles.isEmpty()) {
-            Toast.makeText(this, "Нет записей для объединения", Toast.LENGTH_SHORT).show()
+            runOnUiThread {
+                Toast.makeText(this, "Нет записей для объединения", Toast.LENGTH_SHORT).show()
+            }
             return
         }
 
-        val outputDir = getExternalFilesDir(Environment.DIRECTORY_MUSIC) ?: return
-        if (!outputDir.exists()) outputDir.mkdirs()
+        val outputFile = File(
+            getExternalFilesDir(Environment.DIRECTORY_MUSIC),
+            "MERGED_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())}.m4a"
+        )
 
-        val outputFile = File(outputDir,
-            "MERGED_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())}.m4a")
+        var muxer: MediaMuxer? = null
 
         try {
-            validFiles.forEach { file ->
-                if (!file.exists()) {
-                    runOnUiThread {
-                        Toast.makeText(this, "Файл ${file.name} не найден", Toast.LENGTH_LONG).show()
-                    }
-                    return
+            // Создаем muxer
+            muxer = MediaMuxer(outputFile.absolutePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4)
+
+            // Получаем параметры аудио из первого файла
+            val firstExtractor = MediaExtractor()
+            firstExtractor.setDataSource(validFiles.first().absolutePath)
+
+            var audioFormat: MediaFormat? = null
+            for (i in 0 until firstExtractor.trackCount) {
+                val format = firstExtractor.getTrackFormat(i)
+                if (format.getString(MediaFormat.KEY_MIME)?.startsWith("audio/") == true) {
+                    audioFormat = format
+                    break
                 }
             }
+            firstExtractor.release()
 
-            val listFile = File(cacheDir, "concat_list_${System.currentTimeMillis()}.txt").apply {
-                deleteOnExit()
-            }
-
-            FileWriter(listFile).use { writer ->
-                validFiles.forEach { file ->
-                    writer.write("file '${file.absolutePath}'\n")
+            if (audioFormat == null) {
+                runOnUiThread {
+                    Toast.makeText(this, "Неверный формат аудио", Toast.LENGTH_LONG).show()
                 }
+                return
             }
 
-            val cmd = StringBuilder().apply {
-                append("-y ")
-                append("-f concat ")
-                append("-safe 0 ")
-                append("-i \"${listFile.absolutePath}\" ")
-                append("-filter_complex \"[0:a]apad=pad_dur=1[out]\" ")
-                append("-map \"[out]\" ")
-                append("-c:a aac ")
-                append("-b:a 128k ")
-                append("\"${outputFile.absolutePath}\"")
-            }.toString()
+            // Добавляем дорожку в muxer
+            val audioTrackIndex = muxer.addTrack(audioFormat)
+            muxer.start()
 
-            Log.d(TAG, "FFmpeg command: $cmd")
+            var presentationTimeUs = 0L
 
-            FFmpegKit.executeAsync(cmd, { session ->
-                Log.d(TAG, "FFmpeg session completed: ${session.returnCode}")
-                Log.d(TAG, "FFmpeg logs: ${session.allLogsAsString}")
+            for (file in validFiles) {
+                val extractor = MediaExtractor()
+                extractor.setDataSource(file.absolutePath)
 
-                if (ReturnCode.isSuccess(session.returnCode)) {
-                    if (outputFile.exists() && outputFile.length() > 0) {
-                        runOnUiThread {
-                            saveToHistory(outputFile, validFiles.size)
-                            resetRecordingUI()
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Записи успешно объединены!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } else {
-                        runOnUiThread {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Ошибка: выходной файл не создан",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+                // Находим аудио дорожку
+                var trackIndex = -1
+                for (i in 0 until extractor.trackCount) {
+                    val format = extractor.getTrackFormat(i)
+                    if (format.getString(MediaFormat.KEY_MIME)?.startsWith("audio/") == true) {
+                        trackIndex = i
+                        break
                     }
+                }
+
+                if (trackIndex != -1) {
+                    extractor.selectTrack(trackIndex)
+
+                    val buffer = ByteBuffer.allocate(1024 * 1024) // Увеличиваем размер буфера
+                    val bufferInfo = MediaCodec.BufferInfo()
+
+                    while (true) {
+                        val sampleSize = extractor.readSampleData(buffer, 0)
+                        if (sampleSize < 0) {
+                            break
+                        }
+
+                        // Устанавливаем правильное время для текущего семпла
+                        bufferInfo.set(0, sampleSize, presentationTimeUs, 0)
+                        muxer.writeSampleData(audioTrackIndex, buffer, bufferInfo)
+
+                        // Обновляем время для следующего семпла
+                        presentationTimeUs += extractor.sampleTime
+                        extractor.advance()
+                    }
+
+                    // Добавляем паузу 1 секунда между файлами
+                    presentationTimeUs += 1_000_000L
+                }
+
+                extractor.release()
+            }
+
+            muxer.stop()
+            muxer.release()
+            muxer = null
+
+            runOnUiThread {
+                if (outputFile.exists() && outputFile.length() > 0) {
+                    saveToHistory(outputFile, validFiles.size)
+                    resetRecordingUI()
+                    Toast.makeText(this, "Записи объединены!", Toast.LENGTH_SHORT).show()
                 } else {
-                    runOnUiThread {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Ошибка объединения. Код: ${session.returnCode}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+                    Toast.makeText(this, "Ошибка: файл не создан", Toast.LENGTH_SHORT).show()
                 }
-            })
+            }
 
         } catch (e: Exception) {
-            Log.e(TAG, "Ошибка при объединении", e)
+            Log.e(TAG, "Ошибка при объединении файлов", e)
             runOnUiThread {
-                Toast.makeText(
-                    this,
-                    "Фатальная ошибка: ${e.localizedMessage}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(this, "Ошибка: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
             }
+        } finally {
+            try {
+                muxer?.release()
+            } catch (e: Exception) {
+                Log.w(TAG, "Ошибка освобождения muxer", e)
+            }
+        }
+    }
+
+    private fun getAudioFormat(file: File): MediaFormat? {
+        val extractor = MediaExtractor()
+        return try {
+            extractor.setDataSource(file.absolutePath)
+            for (i in 0 until extractor.trackCount) {
+                val format = extractor.getTrackFormat(i)
+                if (format.getString(MediaFormat.KEY_MIME)?.startsWith("audio/") == true) {
+                    return format
+                }
+            }
+            null
+        } catch (e: Exception) {
+            null
+        } finally {
+            extractor.release()
         }
     }
 
@@ -564,7 +604,7 @@ class MainActivity : AppCompatActivity() {
         audioFiles.fill(null)
         recordButtons.forEachIndexed { index, button ->
             button.text = "Запись ${index + 1}"
-            button.setBackgroundColor(ContextCompat.getColor(this, R.color.not_recorded_gray))
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500))
             playButtons[index].isEnabled = false
             deleteButtons[index].isEnabled = false
         }

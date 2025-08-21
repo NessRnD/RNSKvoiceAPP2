@@ -40,11 +40,11 @@ android {
 }
 
 dependencies {
-    implementation(files("libs/ffmpeg-kit-min-gpl-5.1.LTS.aar"))
-
-    implementation("com.arthenica:smart-exception-java:0.1.0")
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("commons-io:commons-io:2.11.0")
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
